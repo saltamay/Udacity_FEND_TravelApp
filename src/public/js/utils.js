@@ -1,5 +1,5 @@
 // Get user location and date input on  submit
-const getLocation = () => {
+const getUserLocation = () => {
   
   const location = document.getElementById('location').value;
 
@@ -8,7 +8,7 @@ const getLocation = () => {
   return location;
 }
 
-const getDate = () => {
+const getUserDate = () => {
 
   const date = document.getElementById('date').value;
 
@@ -17,4 +17,4 @@ const getDate = () => {
   return date;
 }
 
-export { getLocation, getDate};
+export { getUserLocation, getUserDate};

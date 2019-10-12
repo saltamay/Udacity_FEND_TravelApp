@@ -17,6 +17,7 @@ app.get('/', (req, res) => {
   res.status(200).send('./dist/index.html');
 });
 
-app.listen(8080, () => {
-  console.log('CORS-enabled web server listening on port 8080');
+const PORT = 8080;
+app.listen(PORT, () => {
+  console.log(`CORS-enabled web server listening on port ${PORT}`);
 });
