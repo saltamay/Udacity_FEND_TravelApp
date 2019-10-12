@@ -32,16 +32,6 @@ async function getLocation(location) {
 
 async function getCurrentWeather(locationObj) {
   const endpoint = darkSkyURL + darkSkyKey + `/${locationObj.latitude}, ${locationObj.longitude}`;
-  // try {
-  //   const response = await fetch(endpoint);
-  //   if (response.ok) {
-  //     const jsonRes = await response.json();
-  //     console.log(jsonRes.currently);
-  //     return jsonRes.currently;
-  //   }
-  // } catch (error) {
-  //   console.log(error);
-  // }
   try {
     const response = await fetch('http://localhost:8080/current',
       {
@@ -74,5 +64,19 @@ async function getImages(location) {
   }
 }
 
-export { getLocation, getCurrentWeather, getImages };
+async function getCountryName(locationObj) {
+  const endpoint = `https://restcountries.eu/rest/v2/alpha/${locationObj.country}`
+  try {
+    const response = await fetch(endpoint);
+    if (response.ok) {
+      const jsonRes = await response.json();
+      console.log(jsonRes.name);
+      return jsonRes.name;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export { getLocation, getCurrentWeather, getImages, getCountryName };
 
