@@ -20,5 +20,5 @@ document.getElementById('button_search').addEventListener('click', async (e) => 
   
   const images = await getImages(location);
 
-  displayTripInfo(images, location, country, date);
+  displayTripInfo(images, location, country, date, currentWeather);
 })

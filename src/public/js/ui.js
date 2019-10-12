@@ -1,6 +1,6 @@
 import { countdown } from './utils';
 
-const displayTripInfo = (images, city, country, date) => {
+const displayTripInfo = (images, city, country, date, weather) => {
   document.querySelector('.caption').style.display = 'none';
   document.querySelector('.trip').style.display = 'block';
 
@@ -10,8 +10,13 @@ const displayTripInfo = (images, city, country, date) => {
 
   // Display the days left to trip
   const daysLeft = countdown(date);
+  document.querySelector('.trip_countdown').innerText = `${city}, ${country} is ${daysLeft} days away`;
 
-  document.querySelector('.trip_info').innerText = `${city}, ${country} is ${daysLeft} days away`;
+  // Display weather info
+  document.querySelector('.trip_weather').innerHTML = `<p>Typical weather for then is:</p>
+                                                       <p>${weather.temperature}&deg;F</p>
+                                                       <p>${weather.summary}</p>`;
+  
 }
 
 export { displayTripInfo };
