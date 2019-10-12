@@ -49,6 +49,25 @@ async function getCurrentWeather(locationObj) {
   }
 }
 
+async function getWeatherForecast(locationObj, date) {
+  const endpoint = darkSkyURL + darkSkyKey + `/${locationObj.latitude}, ${locationObj.longitude}`;
+  try {
+    const response = await fetch('http://localhost:8080/forecast',
+      {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ endpoint: endpoint })
+      });
+    if (response.ok) {
+      const jsonRes = await response.json();
+      console.log(jsonRes.daily);
+      return jsonRes.daily;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 async function getImages(location) {
   const pixabayQuery = `&q=${location}&image_type=photo&pretty=true&category=places`
   const endpoint = pixabayURL + pixabayKey + pixabayQuery;
@@ -78,5 +97,5 @@ async function getCountryName(locationObj) {
   }
 }
 
-export { getLocation, getCurrentWeather, getImages, getCountryName };
+export { getLocation, getCurrentWeather, getImages, getCountryName, getWeatherForecast };
 

@@ -4,9 +4,11 @@ const displayTripInfo = (images, city, country, date, weather) => {
   document.querySelector('.caption').style.display = 'none';
   document.querySelector('.trip').style.display = 'block';
 
+  const dateDisplay = new Date(date);
+
   document.querySelector('.images').setAttribute('src', images.hits[0].largeImageURL);
   document.querySelectorAll('.media_heading')[0].innerText = `${city}, ${country}`;
-  document.querySelectorAll('.media_heading')[1].innerText = `${date}`;
+  document.querySelectorAll('.media_heading')[1].innerText = `${dateDisplay.toDateString()}`;
 
   // Display the days left to trip
   const daysLeft = countdown(date);
