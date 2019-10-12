@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/style.scss';
 import { getUserLocation, getUserDate } from './utils'
 import { getLocation, getCurrentWeather, getImages } from './request';
+import { displayTripInfo } from './ui';
 
 console.log('Entry point is setup');
 
@@ -16,4 +17,6 @@ document.getElementById('button_search').addEventListener('click', async (e) => 
   const currentWeather = await getCurrentWeather(locationInfo);
   
   const images = await getImages(location);
+
+  displayTripInfo(images);
 })
