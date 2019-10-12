@@ -1,0 +1,21 @@
+body {
+  height: 100%;
+}
+
+.hero {
+  height: 100vh;
+
+  background: url('../assets/images/ny.jpg');
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.caption {
+  background-color: transparent;
+  position: absolute;
+  left: 0;
+  top: 20vh;
+  width: 100%;
+}
