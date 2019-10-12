@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/style.scss';
-import { getUserLocation, getUserDate } from './utils'
+import { getUserLocation, getUserDate, countdown } from './utils'
 import { getLocation, getCurrentWeather, getImages, getCountryName } from './request';
 import { displayTripInfo } from './ui';
 
