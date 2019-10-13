@@ -1,6 +1,7 @@
 import { countdown } from './utils';
+import { getImages } from './request';
 
-const displayTripInfo = (images, city, countryInfo, start, end, weather) => {
+const displayTripInfo = async (images, city, countryInfo, start, end, weather) => {
   document.querySelector('.caption').style.display = 'none';
   document.querySelector('.trip').style.display = 'block';
 
@@ -8,7 +9,16 @@ const displayTripInfo = (images, city, countryInfo, start, end, weather) => {
   const tripEnd = new Date(end);
 
   document.querySelector('.trip_title').innerHTML = `<img src="${countryInfo.flag}" class="flag"> ${city}, ${countryInfo.name}`;
-  document.querySelector('.images').setAttribute('src', images.hits[0].largeImageURL);
+
+  //
+  if (images.totalHits === 0) {
+    const newImages = await getImages(countryInfo.name);
+    console.log(newImages);
+    document.querySelector('.images').setAttribute('src', newImages.hits[0].largeImageURL);
+  } else {
+    document.querySelector('.images').setAttribute('src', images.hits[0].largeImageURL);
+  }
+  
   document.querySelectorAll('.media_heading')[0].innerText = `${city}, ${countryInfo.name}`;
   document.querySelectorAll('.media_heading')[1].innerText = `${tripStart.toDateString()} - ${tripEnd.toDateString()}`;
   document.querySelectorAll('.media_heading')[2].innerText = `${countdown(tripStart, tripEnd)} days`;

@@ -71,11 +71,13 @@ async function getWeatherForecast(locationObj, date) {
 async function getImages(location) {
   const pixabayQuery = `&q=${location}&image_type=photo&pretty=true&category=places`
   const endpoint = pixabayURL + pixabayKey + pixabayQuery;
+  // console.log(endpoint);
   try {
     const response = await fetch(endpoint);
     if (response.ok) {
       const jsonRes = await response.json();
-      console.log(jsonRes.hits[0].largeImageURL);
+      console.log(jsonRes);
+      // console.log(jsonRes.hits[0].largeImageURL);
       return jsonRes;
     }
   } catch (error) {
