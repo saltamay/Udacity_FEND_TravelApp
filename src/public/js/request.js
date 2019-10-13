@@ -20,7 +20,7 @@ async function getLocation(location) {
       
       location.latitude = jsonRes.geonames[0].lat;
       location.longitude = jsonRes.geonames[0].lng;
-      location.country = jsonRes.geonames[0].countryCode;
+      location.countryCode = jsonRes.geonames[0].countryCode;
 
       console.log(location);
       return location;
@@ -30,24 +30,24 @@ async function getLocation(location) {
   }
 }
 
-async function getCurrentWeather(locationObj) {
-  const endpoint = darkSkyURL + darkSkyKey + `/${locationObj.latitude}, ${locationObj.longitude}`;
-  try {
-    const response = await fetch('http://localhost:8080/current',
-      {
-        method: 'POST',
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ endpoint: endpoint })
-      });
-    if (response.ok) {
-      const jsonRes = await response.json();
-      console.log(jsonRes.currently);
-      return jsonRes.currently;
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
+// async function getCurrentWeather(locationObj) {
+//   const endpoint = darkSkyURL + darkSkyKey + `/${locationObj.latitude}, ${locationObj.longitude}`;
+//   try {
+//     const response = await fetch('http://localhost:8080/current',
+//       {
+//         method: 'POST',
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({ endpoint: endpoint })
+//       });
+//     if (response.ok) {
+//       const jsonRes = await response.json();
+//       console.log(jsonRes.currently);
+//       return jsonRes.currently;
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
 async function getWeatherForecast(locationObj, date) {
   const endpoint = darkSkyURL + darkSkyKey + `/${locationObj.latitude}, ${locationObj.longitude}`;
@@ -83,19 +83,21 @@ async function getImages(location) {
   }
 }
 
-async function getCountryName(locationObj) {
-  const endpoint = `https://restcountries.eu/rest/v2/alpha/${locationObj.country}`
+async function getCountryInfo(locationObj) {
+  const endpoint = `https://restcountries.eu/rest/v2/alpha/${locationObj.countryCode}`
   try {
     const response = await fetch(endpoint);
     if (response.ok) {
       const jsonRes = await response.json();
-      console.log(jsonRes.name);
-      return jsonRes.name;
+      return {
+               name: jsonRes.name,
+               flag: jsonRes.flag
+            }
     }
   } catch (error) {
     console.log(error);
   }
 }
 
-export { getLocation, getCurrentWeather, getImages, getCountryName, getWeatherForecast };
+export { getLocation, getImages, getCountryInfo, getWeatherForecast };
 
