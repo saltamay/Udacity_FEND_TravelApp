@@ -99,5 +99,23 @@ async function getCountryInfo(locationObj) {
   }
 }
 
+// async function displayHomepage() {
+//   try {
+//     const response = await fetch('http://localhost:8080/cancel',
+//     {
+//       method: 'GET',
+//       headers: { "Content-Type": "application/json" }
+//     });
+//     if (response.ok) {
+//       console.log(response);
+//       // const jsonRes = await response.json();
+//       // console.log(jsonRes);
+//       // return jsonRes;
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+
 export { getLocation, getImages, getCountryInfo, getWeatherForecast };
 
