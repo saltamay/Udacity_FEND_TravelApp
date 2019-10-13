@@ -8,22 +8,25 @@ const getUserLocation = () => {
   return location;
 }
 
-const getUserDate = () => {
+const getTripStart = () => {
 
-  const date = document.getElementById('date').value.split('-');
+  const date = document.getElementById('date_start').value.split('-');
 
   return date.join('/');
 }
 
-const countdown = (date) => {
+const getTripEnd = () => {
+  const date = document.getElementById('date_end').value.split('-');
 
-  const now = Date.parse(new Date());
-  const tripDate = Date.parse(new Date(date));
+  return date.join('/');
+}
 
-  console.log(now);
-  console.log(tripDate);
+const countdown = (start, end) => {
 
-  const countdown = tripDate - now;
+  const tripStart = Date.parse(start);
+  const tripEnd = Date.parse(end);
+
+  const countdown = tripEnd - tripStart;
 
   const daysLeft = Math.ceil(countdown / 86400000);
 
@@ -32,4 +35,4 @@ const countdown = (date) => {
   return daysLeft;
 }
 
-export { getUserLocation, getUserDate, countdown};
+export { getUserLocation, getTripStart, getTripEnd, countdown};
