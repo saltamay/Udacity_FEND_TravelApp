@@ -60,8 +60,8 @@ async function getWeatherForecast(locationObj, date) {
       });
     if (response.ok) {
       const jsonRes = await response.json();
-      console.log(jsonRes.daily);
-      return jsonRes.daily;
+      console.log(jsonRes);
+      return jsonRes;
     }
   } catch (error) {
     console.log(error);

@@ -14,7 +14,7 @@ document.getElementById('button_search').addEventListener('click', async (e) => 
 
   const locationInfo = await getLocation(location);
 
-  const currentWeather = await getCurrentWeather(locationInfo);
+  // const currentWeather = await getCurrentWeather(locationInfo);
   const weatherForecast = await getWeatherForecast(locationInfo, Date.parse(date)/1000);
 
   const country = await getCountryName(locationInfo);
