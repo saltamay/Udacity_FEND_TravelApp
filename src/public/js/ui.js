@@ -5,8 +5,14 @@ const displayTripInfo = async (images, city, countryInfo, start, end, weather) =
   document.querySelector('.caption').style.display = 'none';
   document.querySelector('.trip').style.display = 'block';
 
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
   let tripStart = new Date(start);
+  const tripStartText = `${days[tripStart.getDay()]}, ${months[tripStart.getMonth()]} ${tripStart.getDate()}, ${tripStart.getFullYear()}`;
+  
   const tripEnd = new Date(end);
+  const tripEndText = `${days[tripEnd.getDay()]}, ${months[tripEnd.getMonth()]} ${tripEnd.getDate()}, ${tripEnd.getFullYear()}`;
 
   document.querySelector('.trip_title').innerHTML = `<img src="${countryInfo.flag}" class="flag"> ${city}, ${countryInfo.name}`;
 
@@ -20,7 +26,7 @@ const displayTripInfo = async (images, city, countryInfo, start, end, weather) =
   }
   
   document.querySelectorAll('.media_heading')[0].innerText = `${city}, ${countryInfo.name}`;
-  document.querySelectorAll('.media_heading')[1].innerText = `${tripStart.toDateString()} - ${tripEnd.toDateString()}`;
+  document.querySelectorAll('.media_heading')[1].innerText = `${tripStartText} - ${tripEndText}`;
   document.querySelectorAll('.media_heading')[2].innerText = `${countdown(tripStart, tripEnd)} days`;
 
   // Display the days left to trip
