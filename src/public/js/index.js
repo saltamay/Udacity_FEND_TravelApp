@@ -1,5 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/style.scss';
+import 'bootstrap';
+const $ = require("jquery");
 import { getUserLocation, getTripStart, getTripEnd } from './utils'
 import { getLocation, getWeatherForecast, getImages, getCountryInfo, displayHomepage } from './request';
 import { displayTripInfo } from './ui';
@@ -15,8 +17,6 @@ document.getElementById('button_search').addEventListener('click', async (e) => 
 
   const locationInfo = await getLocation(location);
 
-
-  // const currentWeather = await getCurrentWeather(locationInfo);
   const weatherForecast = await getWeatherForecast(locationInfo, Date.parse(tripStart)/1000);
 
   const countryInfo = await getCountryInfo(locationInfo);
@@ -27,7 +27,10 @@ document.getElementById('button_search').addEventListener('click', async (e) => 
 
 });
 
-
-// document.querySelector('.cancel').addEventListener('click', (e) => {
-//   window.location.reload(false);
-// })
+document.querySelectorAll('.modal_close').forEach(element => {
+  element.addEventListener('click', (e) => {
+    e.preventDefault();
+    $('#tripModal').modal('toggle');
+    document.querySelector('.caption').style.display = 'block';
+  })
+});
