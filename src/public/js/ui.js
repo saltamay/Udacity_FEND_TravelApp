@@ -1,5 +1,8 @@
 import { countdown } from './utils';
 import { getImages } from './request';
+import 'bootstrap';
+const $ = require("jquery");
+
 
 const displayTripDates = (startDate, endDate) => {
 
@@ -12,7 +15,8 @@ const displayTripDates = (startDate, endDate) => {
   const tripEnd = new Date(endDate);
   const tripEndText = `${days[tripEnd.getDay()]}, ${months[tripEnd.getMonth()]} ${tripEnd.getDate()}, ${tripEnd.getFullYear()}`;
 
-  document.querySelectorAll('.media_heading')[1].innerText = `${tripStartText} - ${tripEndText}`;
+  document.querySelectorAll('.media_heading')[1].innerText = tripStartText;
+  document.querySelectorAll('.media_heading')[2].innerText = tripEndText;
 }
 
 const displayTripPics = async (images) => {
@@ -56,15 +60,17 @@ const displayWeatherInfo = (weather, daysLeft) => {
 const displayTripInfo = async (images, city, countryInfo, start, end, weather) => {
   
   document.querySelector('.caption').style.display = 'none';
-  document.querySelector('.trip').style.display = 'block';
-
   
+  $('#tripModal').modal({
+    keyboard: false
+  })
+
   document.querySelector('.trip_title').innerHTML = `<img src="${countryInfo.flag}" class="flag"> ${city}, ${countryInfo.name}`;
   
   // Display location, dates and the duration
   document.querySelectorAll('.media_heading')[0].innerText = `${city}, ${countryInfo.name}`;
   displayTripDates(start, end);
-  document.querySelectorAll('.media_heading')[2].innerText = `${countdown(start, end)} days`;
+  document.querySelectorAll('.media_heading')[3].innerText = `${countdown(start, end)} days`;
 
   // Display trip images
   displayTripPics(images);
