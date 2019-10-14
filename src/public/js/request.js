@@ -76,7 +76,7 @@ async function getImages(location) {
     const response = await fetch(endpoint);
     if (response.ok) {
       const jsonRes = await response.json();
-      console.log(jsonRes);
+      // console.log(jsonRes);
       // console.log(jsonRes.hits[0].largeImageURL);
       return jsonRes;
     }

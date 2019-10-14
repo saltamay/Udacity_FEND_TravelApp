@@ -4,30 +4,27 @@ import 'bootstrap';
 const $ = require("jquery");
 
 
-const displayTripDates = (startDate, endDate) => {
+const getTripDate = (date) => {
 
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-  const tripStart = new Date(startDate);
-  const tripStartText = `${days[tripStart.getDay()]}, ${months[tripStart.getMonth()]} ${tripStart.getDate()}, ${tripStart.getFullYear()}`;
+  const tripDate = new Date(date);
+  const tripDateText = `${days[tripDate.getDay()]}, ${months[tripDate.getMonth()]} ${tripDate.getDate()}, ${tripDate.getFullYear()}`;
 
-  const tripEnd = new Date(endDate);
-  const tripEndText = `${days[tripEnd.getDay()]}, ${months[tripEnd.getMonth()]} ${tripEnd.getDate()}, ${tripEnd.getFullYear()}`;
-
-  document.querySelectorAll('.media_heading')[1].innerText = tripStartText;
-  document.querySelectorAll('.media_heading')[2].innerText = tripEndText;
+  return tripDateText;
 }
 
-const displayTripPics = async (images) => {
+const getTripImageURL = async (images) => {
   // Check if location returns any images
   if (images.totalHits === 0) {
     // If not, display pictures for the country
     const newImages = await getImages(countryInfo.name);
-    console.log(newImages);
-    document.querySelector('.images').setAttribute('src', newImages.hits[0].largeImageURL);
+    console.log(newImages.hits[0].largeImageURL);
+    return newImages.hits[0].largeImageURL;
   } else {
-    document.querySelector('.images').setAttribute('src', images.hits[0].largeImageURL);
+    console.log(images.hits[0].largeImageURL);
+    return images.hits[0].largeImageURL;
   }
 }
 
@@ -69,11 +66,18 @@ const displayTripInfo = async (images, city, countryInfo, start, end, weather) =
   
   // Display location, dates and the duration
   document.querySelectorAll('.media_heading')[0].innerText = `${city}, ${countryInfo.name}`;
-  displayTripDates(start, end);
+  
+  //
+  const tripStart = getTripDate(start);
+  const tripEnd = getTripDate(end);
+  document.querySelectorAll('.media_heading')[1].innerText = tripStart;
+  document.querySelectorAll('.media_heading')[2].innerText = tripEnd;
+
   document.querySelectorAll('.media_heading')[3].innerText = `${countdown(start, end)} days`;
 
   // Display trip images
-  displayTripPics(images);
+  const imageURL = await getTripImageURL(images);
+  document.querySelector('.images').setAttribute('src', imageURL);
 
   // Display the days left to trip
   const daysLeft = countdown(new Date(), start);
@@ -83,4 +87,39 @@ const displayTripInfo = async (images, city, countryInfo, start, end, weather) =
   displayWeatherInfo(weather, daysLeft);
 }
 
-export { displayTripInfo };
+const displayTrip = async (images, city, countryInfo, start, end, weather) => {
+
+  const imageURL = await getTripImageURL(images);
+
+  document.querySelector('.caption').style.display = 'none';
+
+  const tripStart = getTripDate(start);
+  const tripEnd = getTripDate(end);
+
+  const daysLeft = countdown(new Date(), start);
+  
+
+  document.querySelector('.hero').innerHTML = `
+  <div class="card mb-3" style="max-width: 698px; margin: 0 auto">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img src="${imageURL}" class="card-img" alt="Picture of Travel Destination">
+    </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h3 class="card-title trip_title"><img src="${countryInfo.flag}" class="flag"> ${city}, ${countryInfo.name}</h3>
+            <h6 class="mt-0">Departure: ${tripStart}</h6>
+            <h6 class="mt-0">Return: ${tripEnd}</h6>
+            <h6 class="mt-0">Duration: ${countdown(start, end)} days</h6>
+            <span class="trip_countdown">Your trip to ${city} is ${daysLeft} days away</span>
+            <span class="trip_weather"></span>
+          </div>
+        </div>
+      </div>
+    </div>`
+
+  // Display weather info
+  displayWeatherInfo(weather, daysLeft);
+}
+
+export { displayTripInfo, displayTrip };

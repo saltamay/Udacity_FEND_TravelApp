@@ -10,26 +10,23 @@
 </head>
 
 <body>
+  <header>
+    <!-- Image and text -->
+    <nav class="navbar navbar-light bg-light">
+      <a class="navbar-brand" href="#">
+        <img src="" width="30" height="30" class="d-inline-block align-top" alt="">
+        Travel App
+      </a>
+    </nav>
+  </header>
   <main>
     <div class="container-fluid p-0">
       <section class="hero">
-        <!-- Image and text -->
-        <nav class="navbar navbar-light bg-light">
-          <a class="navbar-brand" href="#">
-            <img src="" width="30" height="30" class="d-inline-block align-top"
-              alt="">
-            Travel App
-          </a>
-        </nav>
         <div class="caption jumbotron jumbotron-fluid">
           <div class="container">
             <h1 class="display-1 text-center">Travel</h1>
-            <!-- <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p> -->
             <div class="input-group">
-              <!-- <div class="input-group-prepend">
-                <span class="input-group-text">First and last name</span>
-              </div> -->
-              <input type="text" id="location" placeholder="Location" aria-label="Location" class="form-control">
+             <input type="text" id="location" placeholder="Location" aria-label="Location" class="form-control">
               <input type="date" id="date_start" aria-label="Date" class="form-control">
               <input type="date" id="date_end" aria-label="Date" class="form-control">
               <div class="input-group-append">
@@ -61,7 +58,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h3 class="modal-title trip_title" id="tripModalTitle"></h3>
-                <button class="modal_close close" aria-label="Close">
+                <button class="trip_cancel close" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -79,13 +76,14 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary modal_close">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-secondary trip_cancel">Close</button>
+                <button type="button" class="btn btn-primary trip_save">Save</button>
               </div>
             </div>
           </div>
         </div>
       </section>
+      <section class="trips"></section>
     </div>
   </main>
 </body>
