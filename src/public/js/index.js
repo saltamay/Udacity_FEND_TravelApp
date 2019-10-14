@@ -2,46 +2,57 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/style.scss';
 import 'bootstrap';
 const $ = require("jquery");
-import { getUserLocation, getTripStart, getTripEnd } from './utils'
-import { getLocation, getWeatherForecast, getImages, getCountryInfo } from './request';
-import { displayTripInfo, displayTrip } from './ui';
+import { getTripLocation, getTripStart, getTripEnd } from './utils'
+import { getGeoLocation, getWeatherForecast, getImageURL, getCountryInfo } from './request';
+import { showModal, displayTrip } from './ui';
 
-console.log('Entry point is setup');
+const trip = {};
 
 document.getElementById('button_search').addEventListener('click', async (e) => {
   e.preventDefault();
 
-  const location = getUserLocation();
-  const tripStart = getTripStart();
-  const tripEnd = getTripEnd();
+  trip.city = getTripCity();
+  trip.start = getTripStart();
+  trip.end = getTripEnd();
 
-  const locationInfo = await getLocation(location);
+  const geoLocation = await getGeoLocation(trip.city);
 
-  const weatherForecast = await getWeatherForecast(locationInfo, Date.parse(tripStart)/1000);
+  trip.latitude = geoLocation.latitude;
+  trip.longitude = geoLocation.longitude;
+  trip.countryCode = geoLocation.countryCode;
 
-  const countryInfo = await getCountryInfo(locationInfo);
+  trip.weatherForecast = await getWeatherForecast(geoLocation.latitude, geoLocation.longitude);
+
+  const countryInfo = await getCountryInfo(trip.countryCode);
+
+  trip.country = countryInfo.name;
+  trip.countryFlag = countryInfo.flag;
   
-  const images = await getImages(location);
+  trip.image = await getImageURL(trip.city, trip.country);
 
-  displayTripInfo(images, location, countryInfo, tripStart, tripEnd, weatherForecast);
+  console.log(trip);
 
+  showModal(trip);
 });
 
 document.querySelector('.trip_save').addEventListener('click', async (e) => {
   e.preventDefault();
-  $('#tripModal').modal('toggle');
-  const location = getUserLocation();
-  const tripStart = getTripStart();
-  const tripEnd = getTripEnd();
-
-  const locationInfo = await getLocation(location);
-
-  const weatherForecast = await getWeatherForecast(locationInfo, Date.parse(tripStart) / 1000);
-
-  const countryInfo = await getCountryInfo(locationInfo);
-
-  const images = await getImages(location);
-  displayTrip(images, location, countryInfo, tripStart, tripEnd, weatherForecast);
+  
+  try {
+    const response = await fetch('http://localhost:8080/save',
+      {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ trip: trip })
+      });
+    if (response.ok) {
+      displayTrip(trip);
+      return true;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  
 })
 
 document.querySelectorAll('.trip_cancel').forEach(element => {

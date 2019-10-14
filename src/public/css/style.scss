@@ -14,9 +14,6 @@ body {
 
 .caption {
   background-color: transparent;
-  position: absolute;
-  left: 0;
-  top: 20vh;
   width: 100%;
 }
 
@@ -33,3 +30,11 @@ body {
   width: 75px;
   height: auto;
 }
+
+@media screen and (min-width: 576px) {
+  .jumbotron {
+    padding: 8rem 2rem;
+  }
+}
+
+

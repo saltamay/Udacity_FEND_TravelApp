@@ -10,7 +10,7 @@ const pixabayKey = '13922659-0b80b0f115dd3a353e0647b73';
 
 
 
-async function getLocation(location) {
+async function getGeoLocation(location) {
   const endpoint = geonamesUrl + geonamesQuery + location + '&username=' + geonamesKey + '&style=full'; 
   try {
     const response = await fetch(endpoint);
@@ -49,8 +49,8 @@ async function getLocation(location) {
 //   }
 // }
 
-async function getWeatherForecast(locationObj, date) {
-  const endpoint = darkSkyURL + darkSkyKey + `/${locationObj.latitude}, ${locationObj.longitude}`;
+async function getWeatherForecast(latitude, longitude) {
+  const endpoint = darkSkyURL + darkSkyKey + `/${latitude}, ${longitude}`;
   try {
     const response = await fetch('http://localhost:8080/forecast',
       {
@@ -68,25 +68,35 @@ async function getWeatherForecast(locationObj, date) {
   }
 }
 
-async function getImages(location) {
-  const pixabayQuery = `&q=${location}&image_type=photo&pretty=true&category=places`
-  const endpoint = pixabayURL + pixabayKey + pixabayQuery;
-  // console.log(endpoint);
+async function getImageURL(city, country) {
+  const queryCity = `&q=${city}&image_type=photo&pretty=true&category=places`;
+  const queryCountry = `&q=${country}&image_type=photo&pretty=true&category=places`
+  
+  const cityEndpoint = pixabayURL + pixabayKey + queryCity;
+  const countryEndpoint = pixabayURL + pixabayKey + queryCountry;
   try {
-    const response = await fetch(endpoint);
+    let response = await fetch(cityEndpoint);
     if (response.ok) {
-      const jsonRes = await response.json();
+      let jsonRes = await response.json();
+      if (jsonRes.totalHits === 0) {
+        // If not, display pictures for the country
+        response = await fetch(countryEndpoint);
+        if (response.ok) {
+          jsonRes = await response.json();
+          return jsonRes.hits[0].largeImageURL;
+        }
+      }
       // console.log(jsonRes);
       // console.log(jsonRes.hits[0].largeImageURL);
-      return jsonRes;
+      return jsonRes.hits[0].largeImageURL;
     }
   } catch (error) {
     console.log(error);
   }
 }
 
-async function getCountryInfo(locationObj) {
-  const endpoint = `https://restcountries.eu/rest/v2/alpha/${locationObj.countryCode}`
+async function getCountryInfo(countryCode) {
+  const endpoint = `https://restcountries.eu/rest/v2/alpha/${countryCode}`
   try {
     const response = await fetch(endpoint);
     if (response.ok) {
@@ -119,5 +129,5 @@ async function getCountryInfo(locationObj) {
 //   }
 // }
 
-export { getLocation, getImages, getCountryInfo, getWeatherForecast };
+export { getGeoLocation, getImageURL, getCountryInfo, getWeatherForecast };
 

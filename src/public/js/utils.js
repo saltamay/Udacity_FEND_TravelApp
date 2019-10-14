@@ -1,7 +1,7 @@
 // Get user location and date input on  submit
-const getUserLocation = () => {
+const getTripCity = () => {
   
-  const location = document.getElementById('location').value;
+  const location = document.getElementById('city').value;
 
   console.log(location);
 
@@ -35,4 +35,4 @@ const countdown = (start, end) => {
   return daysLeft;
 }
 
-export { getUserLocation, getTripStart, getTripEnd, countdown};
+export { getTripCity, getTripStart, getTripEnd, countdown};
