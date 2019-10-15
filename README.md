@@ -44,44 +44,44 @@ The project will include a simple form where you enter the location you are trav
   
    The following features proposed:
     1. Allow user to add multiple destinations on the same trip.
-    - Pull in weather for additional locations.
+         - Pull in weather for additional locations.
     2. Allow the user to add hotel and/or flight data.
-    - Multiple places to stay. Multiple flights.
+         - Multiple places to stay. Multiple flights.
     3. Use Local Storage to save the data so that when they close, then revisit the page, their information is still there.
     4. Instead of just pulling a single day forecast, pull the forecast for multiple days.
     5. Incorporate icons into forecast.
     6. Allow user to Print their trip and/or export to PDF.
     7. Allow the user to add a todo list and/or packing list for their trip.
     8. Allow the user to add additional trips (this may take some heavy reworking, but is worth the challenge).
-    - Automatically sort additional trips by countdown.
-    - Move expired trips to bottom/have their style change so it’s clear it’s expired.
+         - Automatically sort additional trips by countdown.
+         - Move expired trips to bottom/have their style change so it’s clear it’s expired.
 
 ## Getting Started
 
 1. Download or clone the project:
-'''
+```
 git clone https://github.com/saltamay/travel-app.git [folder_name]
-'''
+```
 2. Install dependencies
-'''
-nepm install --save-dev
-'''
+```
+npm install --save-dev
+```
 3. Start the server
-'''
+```
 npm start
-'''
+```
 4. Setup the environment development or production
-'''
+```
 npm run build-dev
-'''
+```
 or 
-'''
+```
 npm run build-prod
-'''
+```
 5. Test with Jest
-'''
+```
 npm run test
-'''
+```
 
 ## Built With
 
