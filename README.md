@@ -10,13 +10,16 @@ My custom travel app helps you plan your trips. Simply enter the desired trip lo
 4. [Additional Features](#additional-features)
 5. [Getting Started](#getting-started) 
 6. [Built With](#built-with)
-4. [Licence](#licence)
+7. [Test](#test)
+8. [Licence](#licence)
 
 ## About the Project
 
-In most cases of personal projects, it is very common to pull basic data from an external API. This is what we have accomplished so far in this nanodegree. However, many production level applications do not rely on only single source of data, they usually pull multiple data from various resources and make them available to different parts of the app asycroniously, so one API can use the data gathered from another API.
+In most cases of personal projects, it is very common to pull basic data from an external API. This is what we have accomplished so far in this nanodegree. However, many production-level applications do not rely on only a single source of data, they usually pull multiple data from various resources and make them available to different parts of the app asynchronously, so one API can use the data gathered from another API.
 
-The project will include a simple form where you enter the location you are traveling to and the date you are leaving. If the trip is within a week, you will get the current weather forecast. If the trip is in the future, you will get a predicted forecast. The OpenWeather API that was used in Weather Journal App project is great, however the weather forecast future is not included in free tier, so we use DarkSky API in this project. DarkSky API is really specif in terms of the location and it only accepts coordinates of the location in order to pull weather information. For that, we are using Geonames API that lets us to obtain latitude and lontitude of the location we'd like to travel. As you can see, in our API, in order for us to pull the weather data, first we need to get the location information from a different API. Once we have all of this data, we use Pixabay API to display an image of the location entered. I also added an additional feature where we use the REST Countries API to display the national flag of the country. Also, I find out that not so well-known locations do not bring up any pictures from the API, in this case I set up the logic to make another API call to bring up a picture for the country.
+The project will include a simple form where you enter the location you are travelling to and the date you are leaving. If the trip is within a week, you will get the current weather forecast. If the trip is in the future, you will get a predicted forecast. The OpenWeather API that was used in the Weather Journal App project is great, however, the weather forecast future is not included in the free tier, so we use DarkSky API in this project. DarkSky API is specific in terms of the location and it only accepts coordinates of the location to pull weather information. For that, we are using Geonames API that lets us obtain latitude and longitude of the location we'd like to travel. As you can see, in our API, for us to pull the weather data, first we need to get the location information from a different API. Once we have all of this data, we use Pixabay API to display an image of the location entered. I also added a feature where we use the REST Countries API to display the national flag of the country. Also, I find out that not so well-known locations do not bring up any pictures from the API, in this case, I set up the logic to make another API call to bring up a picture for the country.
+
+![Demo My Custom Travel App](/docs/demo_travelapp.gif?raw=true)
 
 ## API(s) Used
 
@@ -93,6 +96,41 @@ npm run test
 * [Express.js](https://expressjs.com/) - Server Framework for Node.js
 * [Jest](https://jestjs.io/) - Testing suit
 * [Service Workers](https://developers.google.com/web/fundamentals/primers/service-workers) - For offline capability
+
+## Test
+
+To test the application, run
+```
+npm run test
+```
+
+Test cases are created using Jest. There are currently 2 test cases. First one tests for asynchronous API call through the express server to 'POST' the trip information to the server. The server receives the request, updates the Array that holds the information for the trips and sends the Array back to the client so we can update the UI with the saved trips. Jest documentation suggests that we should create mocks for our asynchronous tests. For save trip functionality, we created a mock request file that returns a promise if the trip info is sent with the request. Basically, this mimics the 'POST' request that has the trip info attached to its body. The server promise resolves after updating the trips array and sends the array back to the client. So, if we are testing for the following trip object:
+```
+trip = {
+   city: 'Paris',
+   countryCode: 'FR',
+   country: 'France'
+ }
+ ```
+Server should receive this object, update the array, return back the array. Our test should expect to have an array with one element in it so if we 
+```console.log(response[0].city) //We should expect to see 'Paris'```. 
+Or with Jest 
+```expect(response[0].city).toEqual('Paris');``` 
+or for that matter 
+```expect(response[0].countryCode).toEqual('FR');``` 
+or ```expect(response[0].country).toEqual('France');```.
+
+![Server Test](/docs/demo_testcase1.gif?raw=true)
+
+The second test case is for making sure that the getCity() function is not case-sensitive. To test dynamic HTML with Jest, we need to reconstruct the part of our index.html that we want to test and have our test cases to target that specific part. Our getCity() function gets the user input from an input field with the id of the city. We reconstructed this in our code and gave it the value of "pARis". getCity() function should return "Paris" no matter what the input is. So, for that matter, it should return "Paris" for "PARIS" or "paris":
+```
+document.body.innerHTML =
+      '<div id="city">' + 'pARis' + '</div>';
+
+const city = getCity();
+expect(city).toEqual('Paris');
+```
+![Case-insensitive input](/docs/demo_testcase2.gif?raw=true)
 
 ## License
 This project is licensed under the MIT License - see the LICENSE.md file for details
