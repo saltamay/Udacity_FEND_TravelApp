@@ -1,11 +1,14 @@
 // Get user location and date input on  submit
 const getCity = () => {
   
-  const location = document.getElementById('city').value;
+  let city = document.getElementById('city').value;
 
-  console.log(location);
+  city = city.toLowerCase();
+  city = city[0].toUpperCase() + city.slice(1);
 
-  return location;
+  console.log(city);
+
+  return city;
 }
 
 const getTripStart = () => {

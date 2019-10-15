@@ -18,24 +18,24 @@ const getWeatherInfo = (weatherForecast, daysLeft, date) => {
   
   const weather = {
     temperature: 0,
-    summary: ''
+    summary: '',
+    forecastTemp: 0,
+    forecastSummary: ''
   };
 
-  if (daysLeft < 7) {
-    weather.temperature = weatherForecast.currently.temperature;
-    weather.summary = weatherForecast.currently.summary;
-  } else {
-    date = Date.parse(date);
-    /**
-     * Daily forecast returns forecasts for 8 days.
-     * Go through the array to match the correct day
-     */
-    for (let i = 0; i < weatherForecast.daily.data.length; i++) {
-      if (date >= weatherForecast.daily.data[i].time) {
-        weather.temperature = weatherForecast.daily.data[i].temperatureHigh;
-        weather.summary = weatherForecast.daily.data[i].summary;
-        break;
-      }
+  weather.temperature = weatherForecast.currently.temperature;
+  weather.summary = weatherForecast.currently.summary;
+  
+  date = Date.parse(date);
+  /**
+    * Daily forecast returns forecasts for 8 days.
+    * Go through the array to match the correct day
+    */
+  for (let i = 0; i < weatherForecast.daily.data.length; i++) {
+    if (date >= weatherForecast.daily.data[i].time) {
+      weather.forecastTemp = weatherForecast.daily.data[i].temperatureHigh;
+      weather.forecastSummary = weatherForecast.daily.data[i].summary;
+      break;
     }
   }
   return weather;
@@ -72,9 +72,16 @@ const showModal = (trip) => {
 
   // Display weather info
   const weather = getWeatherInfo(trip.weatherForecast, daysLeft, tripStart);
-  document.querySelector('.trip_weather').innerHTML = `<p>The current weather:</p>
-                                                       <p>${weather.temperature}&deg;F</p>
-                                                       <p>${weather.summary}</p>`;
+  if (daysLeft < 7) {
+    document.querySelector('.trip_weather').innerHTML = `<p class="mt-1">The current weather:</p>
+                                                       <p class="mt-1">${weather.temperature}&deg;F</p>
+                                                       <p class="mt-1">${weather.summary}</p>`;
+  } else {
+    document.querySelector('.trip_weather').innerHTML = `<p class="mt-1">Weather forecast for then:</p>
+                                                       <p class="mt-1">${weather.forecastTemp}&deg;F</p>
+                                                       <p class="mt-1">${weather.forecastSummary}</p>`;
+  }
+  
 }
 
 const displayTrip = (trip) => {
