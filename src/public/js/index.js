@@ -8,7 +8,9 @@ import { showModal, displayTrip } from './ui';
 
 const trip = {};
 
-document.getElementById('button_search').addEventListener('click', async (e) => {
+/* Button handle functions */
+
+const handleSearch = async (e) => {
   e.preventDefault();
 
   trip.city = getCity();
@@ -27,17 +29,17 @@ document.getElementById('button_search').addEventListener('click', async (e) => 
 
   trip.country = countryInfo.name;
   trip.countryFlag = countryInfo.flag;
-  
+
   trip.image = await getImageURL(trip.city, trip.country);
 
   console.log(trip);
 
   showModal(trip);
-});
+}
 
-document.querySelector('.trip_save').addEventListener('click', async (e) => {
+const handleSave = async (e) => {
   e.preventDefault();
-  
+
   try {
     const response = await fetch('http://localhost:8080/save',
       {
@@ -46,19 +48,27 @@ document.querySelector('.trip_save').addEventListener('click', async (e) => {
         body: JSON.stringify({ trip: trip })
       });
     if (response.ok) {
-      displayTrip(trip);
-      return true;
+      const jsonRes = await response.json();
+      displayTrip(jsonRes);
+      return jsonRes;
     }
   } catch (error) {
     console.log(error);
   }
-  
-})
+}
+
+const handleCancel = (e) => {
+  e.preventDefault();
+  $('#tripModal').modal('toggle');
+  document.querySelector('.caption').style.display = 'block';
+}
+
+/* Add event listeners */
+
+document.getElementById('button_search').addEventListener('click', handleSearch);
+
+document.querySelector('.trip_save').addEventListener('click', handleSave)
 
 document.querySelectorAll('.trip_cancel').forEach(element => {
-  element.addEventListener('click', (e) => {
-    e.preventDefault();
-    $('#tripModal').modal('toggle');
-    document.querySelector('.caption').style.display = 'block';
-  })
+  element.addEventListener('click', handleCancel);
 });

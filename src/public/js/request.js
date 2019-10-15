@@ -30,25 +30,6 @@ async function getGeoLocation(location) {
   }
 }
 
-// async function getCurrentWeather(locationObj) {
-//   const endpoint = darkSkyURL + darkSkyKey + `/${locationObj.latitude}, ${locationObj.longitude}`;
-//   try {
-//     const response = await fetch('http://localhost:8080/current',
-//       {
-//         method: 'POST',
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({ endpoint: endpoint })
-//       });
-//     if (response.ok) {
-//       const jsonRes = await response.json();
-//       console.log(jsonRes.currently);
-//       return jsonRes.currently;
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-
 async function getWeatherForecast(latitude, longitude) {
   const endpoint = darkSkyURL + darkSkyKey + `/${latitude}, ${longitude}`;
   try {
@@ -111,23 +92,6 @@ async function getCountryInfo(countryCode) {
   }
 }
 
-// async function displayHomepage() {
-//   try {
-//     const response = await fetch('http://localhost:8080/cancel',
-//     {
-//       method: 'GET',
-//       headers: { "Content-Type": "application/json" }
-//     });
-//     if (response.ok) {
-//       console.log(response);
-//       // const jsonRes = await response.json();
-//       // console.log(jsonRes);
-//       // return jsonRes;
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
 
 export { getGeoLocation, getImageURL, getCountryInfo, getWeatherForecast };
 

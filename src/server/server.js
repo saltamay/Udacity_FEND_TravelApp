@@ -35,8 +35,7 @@ app.post('/save', (req, res, next) => {
   if (req.body !== " ") {
     const trip = req.body.trip;
     trips.push(trip);
-    console.log(trips);
-    res.status(201).send('Saved');
+    res.status(201).send(trip);
   } else {
     res.status(400).json('Bad Request');
   }
