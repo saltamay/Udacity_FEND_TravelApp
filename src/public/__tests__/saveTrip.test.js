@@ -13,5 +13,5 @@ const handleSave = async () => {
 
 it('Should return an array that containt trip object', async function() {
   const response = await handleSave();
-  expect(response[0].city).toEqual('Paris');
+  expect(response[0].country).toEqual('France');
 })
