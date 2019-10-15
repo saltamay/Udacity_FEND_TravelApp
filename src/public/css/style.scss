@@ -17,13 +17,16 @@ body {
   width: 100%;
 }
 
-.trip {
-  display: none;
-}
+.jumbotron {
+    padding: 4rem 2rem;
+  }
 
-.images {
-  width: 360px;
-  height: 270px;
+.trips {
+  background-color: #fff;
+  width: 90%;
+  max-width: 868px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
 .flag {

@@ -92,29 +92,32 @@ const displayTrip = (trip) => {
 
   const section = document.createElement('section');
   section.classList.add('trips');
+
+  const div = document.createElement('div');
   
-  section.innerHTML = `
-  <div class="card mb-3" style="max-width: 698px; margin: 0 auto">
+  div.innerHTML = `
+  <div class="card mb-3" style="max-width: 768px; margin: 0 auto">
     <div class="row no-gutters">
       <div class="col-md-4">
         <img src="${trip.image}" class="card-img" alt="Picture of Travel Destination">
-    </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h3 class="card-title trip_title"><img src="${trip.countryFlag}" class="flag"> ${trip.city}, ${trip.country}</h3>
-            <h6 class="mt-0">Departure: ${tripStart}</h6>
-            <h6 class="mt-0">Return: ${tripEnd}</h6>
-            <h6 class="mt-0">Duration: ${countdown(trip.start, trip.end)} days</h6>
-            <span class="trip_countdown">Your trip to ${trip.city} is ${daysLeft} days away</span>
-            <p>The current weather:</p>
-            <p>${weather.temperature}&deg;F</p>
-            <p>${weather.summary}</p>
-          </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h3 class="card-title trip_title"><img src="${trip.countryFlag}" class="flag"> ${trip.city}, ${trip.country}</h3>
+          <h6 class="mt-0">Departure: ${tripStart}</h6>
+          <h6 class="mt-0">Return: ${tripEnd}</h6>
+          <h6 class="mt-0">Duration: ${countdown(trip.start, trip.end)} days</h6>
+          <span class="trip_countdown">Your trip to ${trip.city} is ${daysLeft} days away</span>
+          <p>The current weather:</p>
+          <p>${weather.temperature}&deg;F</p>
+          <p>${weather.summary}</p>
         </div>
       </div>
-    </div>`;
+    </div>
+  </div>`;
 
-    document.querySelector('.hero').appendChild(section);
+  section.appendChild(div);
+  document.querySelector('.hero').appendChild(section);
 }
 
 export { showModal, displayTrip };

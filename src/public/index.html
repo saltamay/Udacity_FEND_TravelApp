@@ -23,15 +23,15 @@
     <div class="container-fluid p-0">
       <section class="hero">
         <div class="caption jumbotron jumbotron-fluid">
-          <div class="container">
+          <div class="container search">
             <h1 class="display-1 text-center">Travel</h1>
-            <div class="input-group">
-             <input type="text" id="city" placeholder="City" aria-label="City" class="form-control">
-              <input type="date" id="date_start" aria-label="Date" class="form-control">
-              <input type="date" id="date_end" aria-label="Date" class="form-control">
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button" id="button_search">Search</button>
-              </div>
+            <div class="row">
+             <input type="text" id="city" placeholder="City" aria-label="City" class="form-control col-md-3 mt-1">
+              <input type="date" id="date_start" aria-label="Date" class="form-control col-sm-6 col-md-3 mt-1">
+              <input type="date" id="date_end" aria-label="Date" class="form-control col-sm-6 col-md-3 mt-1">
+              <!-- <div class="input-group-append col-md-1"> -->
+                <button class="btn btn-secondary col-md-2 mt-1" type="button" id="button_search">Search</button>
+              <!-- </div> -->
             </div>
           </div>
         </div>
@@ -46,27 +46,29 @@
                 </button>
               </div>
               <div class="modal-body">
-                <div class="media">
-                  <img src="" class="images mr-3" alt="Popular Images from Trip Location">
-                  <div class="media-body">
-                    <h4 class="mt-0">Trip to: <span class="media_heading"></span></h4>
-                    <h6 class="mt-0">Departure: <span class="media_heading"></span></h6>
-                    <h6 class="mt-0">Return: <span class="media_heading"></span></h6>
-                    <h6 class="mt-0">Duration: <span class="media_heading"></span></h6>
-                    <span class="trip_countdown"></span>
-                    <span class="trip_weather"></span>
+                <div class="container-fluid">
+                  <div class="media row">
+                    <img src="" class="images mr-3 col-12 col-lg-5" alt="Popular Images from Trip Location">
+                    <div class="media-body col-12 col-lg-7">
+                      <h4 class="mt-0">Trip to: <span class="media_heading"></span></h4>
+                      <h6 class="mt-0">Departure: <span class="media_heading"></span></h6>
+                      <h6 class="mt-0">Return: <span class="media_heading"></span></h6>
+                      <h6 class="mt-0">Duration: <span class="media_heading"></span></h6>
+                      <span class="trip_countdown"></span>
+                      <span class="trip_weather"></span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary trip_cancel">Close</button>
-                <button type="button" class="btn btn-primary trip_save">Save</button>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary trip_cancel">Close</button>
+                  <button type="button" class="btn btn-primary trip_save">Save</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-      <section class="trips"></section>
+      <!-- <section class="trips"></section> -->
     </div>
   </main>
 </body>

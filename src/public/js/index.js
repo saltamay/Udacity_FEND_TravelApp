@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/style.scss';
 import 'bootstrap';
 const $ = require("jquery");
-import { getTripLocation, getTripStart, getTripEnd } from './utils'
+import { getCity, getTripStart, getTripEnd } from './utils'
 import { getGeoLocation, getWeatherForecast, getImageURL, getCountryInfo } from './request';
 import { showModal, displayTrip } from './ui';
 
@@ -11,7 +11,7 @@ const trip = {};
 document.getElementById('button_search').addEventListener('click', async (e) => {
   e.preventDefault();
 
-  trip.city = getTripCity();
+  trip.city = getCity();
   trip.start = getTripStart();
   trip.end = getTripEnd();
 
