@@ -57,3 +57,5 @@ app.post('/forecast', async (req, res, next) => {
     res.status(400).json('Bad Request');
   }
 });
+
+export { app };
