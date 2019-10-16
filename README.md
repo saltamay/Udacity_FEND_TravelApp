@@ -104,7 +104,7 @@ To test the application, run
 npm run test
 ```
 
-Test cases are created using Jest. There are currently 2 test cases. First one tests for asynchronous API call through the express server to 'POST' the trip information to the server. The server receives the request, updates the Array that holds the information for the trips and sends the Array back to the client so we can update the UI with the saved trips. Jest documentation suggests that we should create mocks for our asynchronous tests. For save trip functionality, we created a mock request file that returns a promise if the trip info is sent with the request. Basically, this mimics the 'POST' request that has the trip info attached to its body. The server promise resolves after updating the trips array and sends the array back to the client. So, if we are testing for the following trip object:
+Test cases are created using Jest. There are currently 3 test files. First file tests for asynchronous API call through the express server to 'POST' the trip information to the server. The server receives the request, updates the Array that holds the information for the trips and sends the Array back to the client so we can update the UI with the saved trips. Jest documentation suggests that we should create mocks for our asynchronous tests. For save trip functionality, we created a mock request file that returns a promise if the trip info is sent with the request. Basically, this mimics the 'POST' request that has the trip info attached to its body. The server promise resolves after updating the trips array and sends the array back to the client. So, if we are testing for the following trip object:
 ```
 trip = {
    city: 'Paris',
@@ -131,6 +131,10 @@ const city = getCity();
 expect(city).toEqual('Paris');
 ```
 ![Case-insensitive input](/docs/demo_testcase2.gif?raw=true)
+
+The third test file tests our express server making sure that all 'POST' and 'GET' routes/endpoints are working. First, we make sure that our 'POST' route is working properly so we can save the trip information received from the external API(s). Server receives the request and send back the trip information along with the status code '201'. Second we test for 'GET' route for getting home page. Everytime we refresh the page, route received the request and sends back the 'index.html' along with the status code '200'.
+
+![Server Tests](/docs/demo_testcase3.gif?raw=true)
 
 ## License
 This project is licensed under the MIT License - see the LICENSE.md file for details
