@@ -1,3 +1,14 @@
+# MESSAGE FROM UDACITY
+
+>Recently, we've noticed submissions for Travel App project getting plagiarised from this repository, which is a violation of Udacity's Honor Code and in turn, counterproductive in the learning journey of the students itself.
+
+>Plagiarism is highly discouraged, and that a submission that includes materials copied from this repository would be discounted and graded as plagiarised by Udacity."
+
+---
+
+Please do not copy the code in this repo to use for project submissions. Thanks!
+
+
 # Udacity Front End Development Nonodegree Capstone: My Custom Travel App
 
 My custom travel app helps you plan your trips. Simply enter the desired trip location &amp; date; My Custom Travel App will display the current weather or weather forecast depending on the trip date and an image of the location using information obtained from external APIs.
